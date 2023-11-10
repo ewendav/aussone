@@ -1,0 +1,173 @@
+body{
+	margin: 0;
+	padding: 0;
+	overflow: hidden;
+	height: 100vw;
+}
+
+.menu
+{
+	background-color : #FBFCB0;
+	height : 40%;
+}
+.infosComplementaires
+{
+	background-color : #C3CBC5;
+	
+}
+
+.partieCentrale
+{
+	background-color : #F9CB37;
+	height : 70%;
+	font-size : 12px;
+}	
+
+.header{
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	background-color : #347bff;
+	height: 4vw;
+	font-size: larger;
+}
+
+.titre{
+	display: flex;
+	justify-content: left;
+	align-items: center;
+	margin-left: 15px;
+}
+
+.inscription {
+	margin-right: 15px;
+	width: 13vw;
+	display: flex;
+	justify-content: space-around;
+	align-items: center;
+}
+
+.Connexion{
+	background-color: #347bff;
+	border: none;
+}
+
+.Connexion:hover{
+	background-color: white;
+	border-radius: 20px 0px 20px 0px;
+}
+
+.Visualiser{
+	background-color: rgb(78, 139, 252);
+	display: flex;
+	justify-content: space-evenly;
+	text-align: center;
+	height: 2vw;
+}
+
+.tailleInscription{
+	margin: 1.75rem auto;
+	width: 28vw;
+}
+
+.bordure{
+	border: none;
+	border-radius: 0%;
+
+}
+
+.bordure:hover{
+	color: #fff;
+	transition-duration: 0.15s;
+    transition-delay: 0.2s;
+}
+
+.bordureMenu{
+	border-radius: 0px 20px 0px 20px;
+}
+
+.milieu{
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	height: 20vh;
+}
+
+form{
+	display: flex;
+	justify-content: space-between;
+	height: 20%;
+	flex-direction: column;
+}
+
+.input{
+	height: 45%;
+	margin-top: 1vh;
+}
+
+#zoneResultat{
+	height: 10vw;
+	width: 20vw;
+}
+
+.premiereSection{
+	display: flex;
+	justify-content:space-around;
+	align-items: center;
+	height: 60vh;
+}
+
+li{
+	list-style-type: none;
+}
+
+ul {
+	margin: 0;
+	padding: 0;
+	text-align: center;
+}
+
+.ajax{
+	position: absolute;
+}
+
+.select{
+    color: #000000;
+    font-size: 110%;
+    font-family: 'Jost', sans-serif, serif;
+    line-height: 170%;
+    outline: 0;
+ 
+    padding-top: 5px;
+    padding-left: 12px;
+    padding-right: 12px;
+    padding-bottom: 5px;
+ 
+    background-color: #347bff;
+
+ 
+	border-radius: 20px 0px 20px 0px;
+    border: none;
+ 
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+/*END*/}
+ 
+.select option {
+    color: #000000;
+    background-color: #ffffff;
+    border: none;
+	
+}
+ 
+.select:hover {
+    color: #fff;
+    background-color: #54a0ff;
+    transition-duration: 0.25s;
+    transition-delay: 0.2s;
+}
+
+
+
+
