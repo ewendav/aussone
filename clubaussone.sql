@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : 127.0.0.1:3306
--- Généré le : ven. 10 nov. 2023 à 09:56
+-- Généré le : ven. 10 nov. 2023 à 12:43
 -- Version du serveur : 8.0.33
 -- Version de PHP : 8.2.6
 
@@ -18,7 +18,7 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Base de données : `clubaussonne`
+-- Base de données : `clubaussone`
 --
 
 -- --------------------------------------------------------
@@ -79,6 +79,32 @@ INSERT INTO `administrateur` (`idAdmin`, `nomAdmin`, `prenomAdmin`, `loginAdmin`
 -- --------------------------------------------------------
 
 --
+-- Structure de la table `competent`
+--
+
+DROP TABLE IF EXISTS `competent`;
+CREATE TABLE IF NOT EXISTS `competent` (
+  `idEntraineur` int NOT NULL,
+  `idSpecialite` int NOT NULL,
+  KEY `fk_competent_entraineurSpecialite` (`idEntraineur`,`idSpecialite`),
+  KEY `idSpecialite` (`idSpecialite`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+--
+-- Déchargement des données de la table `competent`
+--
+
+INSERT INTO `competent` (`idEntraineur`, `idSpecialite`) VALUES
+(1, 3),
+(1, 4),
+(1, 5),
+(1, 6),
+(2, 2),
+(3, 1);
+
+-- --------------------------------------------------------
+
+--
 -- Structure de la table `entraineur`
 --
 
@@ -115,24 +141,24 @@ CREATE TABLE IF NOT EXISTS `equipe` (
   `ageMaxEquipe` int NOT NULL,
   `sexeEquipe` char(1) NOT NULL,
   `idEntraineur` int NOT NULL,
+  `idSport` int NOT NULL,
   PRIMARY KEY (`idEquipe`),
-  KEY `fk_equipe_entraineur` (`idEntraineur`)
+  KEY `fk_equipe_entraineur` (`idEntraineur`),
+  KEY `fk_equipe_sport` (`idSport`)
 ) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=latin1;
 
 --
 -- Déchargement des données de la table `equipe`
 --
 
-INSERT INTO `equipe` (`idEquipe`, `nomEquipe`, `nbrPlaceEquipe`, `ageMinEquipe`, `ageMaxEquipe`, `sexeEquipe`, `idEntraineur`) VALUES
-(1, 'natation', 10, 5, 8, 'F', 3),
-(2, 'foot', 20, 10, 12, 'F', 2),
-(3, 'judo', 10, 5, 8, 'F', 1),
-(4, 'equitation', 10, 5, 8, 'F', 1),
-(5, 'volley', 10, 5, 8, 'F', 1),
-(6, 'athletisme', 10, 5, 8, 'F', 1),
-(7, 'moto cross', 10, 5, 8, 'F', 1),
-(8, 'equipe essai', 10, 5, 8, 'F', 1),
-(9, 'equipe essai', 10, 5, 8, 'F', 1);
+INSERT INTO `equipe` (`idEquipe`, `nomEquipe`, `nbrPlaceEquipe`, `ageMinEquipe`, `ageMaxEquipe`, `sexeEquipe`, `idEntraineur`, `idSport`) VALUES
+(1, 'Les daulphins volants', 10, 5, 8, 'F', 3, 1),
+(2, 'Les footeux', 20, 10, 12, 'F', 2, 2),
+(3, 'BriqueCasse', 10, 5, 8, 'F', 1, 3),
+(4, 'FunPoney', 10, 5, 8, 'F', 1, 4),
+(5, 'VolleyTeam', 10, 5, 8, 'F', 1, 5),
+(6, 'Athevite', 10, 5, 8, 'F', 1, 6),
+(7, 'VroumVroum', 10, 5, 8, 'F', 1, 7);
 
 -- --------------------------------------------------------
 
@@ -181,16 +207,29 @@ INSERT INTO `logaction` (`id`, `loginUtilisateur`, `roleUtilisateur`, `dateConne
 -- --------------------------------------------------------
 
 --
--- Structure de la table `spécialités`
+-- Structure de la table `sport`
 --
 
-DROP TABLE IF EXISTS `spécialités`;
-CREATE TABLE IF NOT EXISTS `spécialités` (
-  `id` int NOT NULL AUTO_INCREMENT,
-  `libelle` varchar(20) NOT NULL,
-  `Création` datetime NOT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+DROP TABLE IF EXISTS `sport`;
+CREATE TABLE IF NOT EXISTS `sport` (
+  `idSport` int NOT NULL,
+  `libelle` varchar(32) NOT NULL,
+  PRIMARY KEY (`idSport`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Déchargement des données de la table `sport`
+--
+
+INSERT INTO `sport` (`idSport`, `libelle`) VALUES
+(1, 'natation'),
+(2, 'foot'),
+(3, 'judo'),
+(4, 'equitation'),
+(5, 'volley'),
+(6, 'athletisme'),
+(7, 'moto-cross'),
+(8, 'natation');
 
 -- --------------------------------------------------------
 
@@ -270,22 +309,18 @@ ALTER TABLE `adherent`
   ADD CONSTRAINT `fk_adherent_equipe` FOREIGN KEY (`idEquipe`) REFERENCES `equipe` (`idEquipe`);
 
 --
+-- Contraintes pour la table `competent`
+--
+ALTER TABLE `competent`
+  ADD CONSTRAINT `competent_ibfk_1` FOREIGN KEY (`idEntraineur`) REFERENCES `entraineur` (`idEntraineur`),
+  ADD CONSTRAINT `competent_ibfk_2` FOREIGN KEY (`idSpecialite`) REFERENCES `sport` (`idSport`);
+
+--
 -- Contraintes pour la table `equipe`
 --
 ALTER TABLE `equipe`
-  ADD CONSTRAINT `fk_equipe_entraineur` FOREIGN KEY (`idEntraineur`) REFERENCES `entraineur` (`idEntraineur`);
-
---
--- Contraintes pour la table `titulaire`
---
-ALTER TABLE `titulaire`
-  ADD CONSTRAINT `fk_titulaire_entraineur` FOREIGN KEY (`idEntraineur`) REFERENCES `entraineur` (`idEntraineur`);
-
---
--- Contraintes pour la table `vacataire`
---
-ALTER TABLE `vacataire`
-  ADD CONSTRAINT `fk_vacataire_entraineur` FOREIGN KEY (`idEntraineur`) REFERENCES `entraineur` (`idEntraineur`);
+  ADD CONSTRAINT `equipe_ibfk_1` FOREIGN KEY (`idEntraineur`) REFERENCES `entraineur` (`idEntraineur`),
+  ADD CONSTRAINT `equipe_ibfk_2` FOREIGN KEY (`idSport`) REFERENCES `sport` (`idSport`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
