@@ -14,7 +14,8 @@ class accesBD
 		$this->hote="localhost";
 		$this->login="root";
 		$this->passwd="";
-		$this->base="aussonnegitewen";
+		$this->base="Clubaussone";
+
 		$this->connexion();
 		
 		}
@@ -276,6 +277,9 @@ class accesBD
 				break;
 			case 'LOGACTION':
 				$stringQuery.='logaction';
+				break;
+			case 'SPORT':
+				$stringQuery.='sport';
 				break;
 			default:
 				die('Pas une table valide');
