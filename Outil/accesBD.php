@@ -14,7 +14,7 @@ class accesBD
 		$this->hote="localhost";
 		$this->login="root";
 		$this->passwd="";
-		$this->base="Clubaussonne";
+		$this->base="aussonnegitewen";
 		$this->connexion();
 		
 		}
