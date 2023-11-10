@@ -5,6 +5,7 @@
 		private $tousLesAdherents;
 		private $tousLesVacataires;
 		private $tousLesTitulaires;
+		private $tousLesSports;
 		private $maBD;
 		
 /*********************************************************************************************************************
@@ -18,12 +19,14 @@
 			$this->tousLesTitulaires = new conteneurTitulaire();
 			$this->toutesLesEquipes = new conteneurEquipe();
 			$this->tousLesAdherents = new conteneurAdherent();
+			$this->tousLesSports = new conteneurSport();
 			
 	
 			$this->chargeLesVacataires();
 			$this->chargeLesTitulaires();
 			$this->chargeLesEquipes();
 			$this->chargeLesAdherents();
+			$this->chargeLesSports();
 			
 			
 		}
@@ -197,6 +200,16 @@
 			$nbA=0;
 			while ($nbA<sizeof($resultatAdherent))
 			{	$this->tousLesAdherents->ajouterUnAdherent($this->toutesLesEquipes->donneObjetEquipeDepuisNumero($resultatAdherent[$nbA][7]),$resultatAdherent[$nbA][0],$resultatAdherent[$nbA][1],$resultatAdherent[$nbA][2],$resultatAdherent[$nbA][3],$resultatAdherent[$nbA][4],$resultatAdherent[$nbA][5],$resultatAdherent[$nbA][6]);
+				$nbA++;
+			}
+		}
+
+		public function chargeLesSports()
+		{   $resultatSport=$this->maBD->chargement('sport');
+
+			$nbA=0;
+			while ($nbA<sizeof($resultatSport))
+			{	$this->tousLesSports->ajouterUnSport($resultatSport[$nbA][0], $resultatSport[$nbA][1]);
 				$nbA++;
 			}
 		}
