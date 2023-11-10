@@ -1,6 +1,5 @@
 <?php
 
-session_set_cookie_params(0, '/', '', true, true);
 
 session_set_cookie_params([
 	'lifetime' => 0, // le cookie expire dés qur le navigateur est fermé 
