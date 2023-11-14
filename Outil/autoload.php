@@ -12,6 +12,12 @@ session_set_cookie_params([
 
 
 session_start();
+
+if(!isset($_SESSION['key']))
+{
+		$_SESSION['key']=bin2hex(random_bytes(32));		
+}
+
 	function my_autoloader($class) 
 	{	$result=substr($class,0,5);
 		if (strcmp($result, 'contr') == 0)
