@@ -55,6 +55,7 @@ session_gc(); // vérifie manuellement si des sessions inactif n'ont pas été s
 ********************************************************************************************/
 		public function affichePage($action,$vue,$role)
 		{
+
 			if (isset($_GET['action']) && isset($_GET['vue']))
 			{
 				$action = $_GET['action'];
@@ -65,16 +66,23 @@ session_gc(); // vérifie manuellement si des sessions inactif n'ont pas été s
 					case "Entraineur" : 
 						$this->actionEntraineur($action,$role);
 						break;
+
 					case "Equipe" :
 						$this->actionEquipe($action,$role);
 						break;
+
 					case "Adherent" :
 						$this->actionAdherent($action,$role);
-
 						break;
+
 					case "Connexion" :
 						$this->actionConnexion($action,$role);
 						break;
+
+						case "Spe" :
+							$this->actionSpe($action,$role);
+							break;
+
 				}
 			}
 		}
@@ -207,15 +215,6 @@ session_gc(); // vérifie manuellement si des sessions inactif n'ont pas été s
 			}
 		}
 
-		public function chargeLesSports()
-		{   $resultatSport=$this->maBD->chargement('sport');
-
-			$nbA=0;
-			while ($nbA<sizeof($resultatSport))
-			{	$this->tousLesSports->ajouterUnSport($resultatSport[$nbA][0], $resultatSport[$nbA][1]);
-				$nbA++;
-			}
-		}
 
 
 		public function changerMdp($newMdp)
@@ -228,11 +227,34 @@ session_gc(); // vérifie manuellement si des sessions inactif n'ont pas été s
 		{
 			$this->maBD->afficheListeDesThemes($uneRef);
 		}
+
+
+
+
+
+/************************************************************************************************
+              POUR LES ACTIONS CONCERNANT LES SPE/SPORT
+					
+*************************************************************************************************/
+		//---> On aiguille notre action		
+		function actionSpe($action,$role)
+		{
+			require 'controleur/controleurSpe.php';
+		}
+
+		
+		public function chargeLesSports()
+		{   $resultatSport=$this->maBD->chargement('sport');
+
+			$nbA=0;
+			while ($nbA<sizeof($resultatSport))
+			{	$this->tousLesSports->ajouterUnSport($resultatSport[$nbA][0], $resultatSport[$nbA][1]);
+				$nbA++;
+			}
+		}
+	
 	
 	}
-
-
-
 	
 ?>
 

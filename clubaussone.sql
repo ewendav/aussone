@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : 127.0.0.1:3306
--- Généré le : ven. 10 nov. 2023 à 12:43
+-- Généré le : ven. 24 nov. 2023 à 15:46
 -- Version du serveur : 8.0.33
 -- Version de PHP : 8.2.6
 
@@ -36,21 +36,79 @@ CREATE TABLE IF NOT EXISTS `adherent` (
   `sexeAdherent` char(1) NOT NULL,
   `loginAdherent` char(20) NOT NULL,
   `pwdAdherent` char(80) CHARACTER SET latin1 COLLATE latin1_swedish_ci NOT NULL,
-  `idEquipe` int NOT NULL,
-  PRIMARY KEY (`idAdherent`),
-  KEY `fk_adherent_equipe` (`idEquipe`)
+  PRIMARY KEY (`idAdherent`)
 ) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=latin1;
 
 --
 -- Déchargement des données de la table `adherent`
 --
 
-INSERT INTO `adherent` (`idAdherent`, `nomAdherent`, `prenomAdherent`, `ageAdherent`, `sexeAdherent`, `loginAdherent`, `pwdAdherent`, `idEquipe`) VALUES
-(1, 'Dupont', 'Pierre', 8, 'F', 'a', '0cc175b9c0f1b6a831c399e269772661', 3),
-(2, 'Dubois', 'Vincent', 10, 'M', 'vDubois', 'b6c7790658f2cabc77cfb445f3530cf4', 1),
-(3, 'Durant', 'Jacques', 6, 'M', 'jDurant', '01e8e31b6f11b0872c662c306b3e87c9', 2),
-(4, 'Fleur', 'Sophie', 7, 'F', 'sFleur', '520a72f041586acdeb770d35388ce6c4', 2),
-(6, 'Essai', 'adherent', 12, 'F', 'essai', 'essai', 3);
+INSERT INTO `adherent` (`idAdherent`, `nomAdherent`, `prenomAdherent`, `ageAdherent`, `sexeAdherent`, `loginAdherent`, `pwdAdherent`) VALUES
+(1, 'Dupont', 'Pierre', 8, 'F', 'a', '0cc175b9c0f1b6a831c399e269772661'),
+(2, 'Dubois', 'Vincent', 10, 'M', 'vDubois', 'b6c7790658f2cabc77cfb445f3530cf4'),
+(3, 'Durant', 'Jacques', 6, 'M', 'jDurant', '01e8e31b6f11b0872c662c306b3e87c9'),
+(4, 'Fleur', 'Sophie', 7, 'F', 'sFleur', '520a72f041586acdeb770d35388ce6c4');
+
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `adherentequipe`
+--
+
+DROP TABLE IF EXISTS `adherentequipe`;
+CREATE TABLE IF NOT EXISTS `adherentequipe` (
+  `idEquipe` int NOT NULL,
+  `idAdherent` int NOT NULL,
+  KEY `idEquipe` (`idEquipe`,`idAdherent`),
+  KEY `idAdherent` (`idAdherent`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+--
+-- Déchargement des données de la table `adherentequipe`
+--
+
+INSERT INTO `adherentequipe` (`idEquipe`, `idAdherent`) VALUES
+(1, 2),
+(2, 3),
+(2, 4),
+(3, 1),
+(4, 1);
+
+--
+-- Déclencheurs `adherentequipe`
+--
+DROP TRIGGER IF EXISTS `nbEquipeAdherent`;
+DELIMITER $$
+CREATE TRIGGER `nbEquipeAdherent` BEFORE INSERT ON `adherentequipe` FOR EACH ROW BEGIN
+DECLARE resultat int DEFAULT 0;
+DECLARE resultat2 int DEFAULT 0;
+DECLARE nbPlace int DEFAULT 0;
+SET resultat = (Select COUNT(adherentequipe.idAdherent)
+                from adherentequipe
+                where adherentequipe.idAdherent = new.idAdherent);
+
+	if resultat = 3 THEN
+    	SIGNAL SQLSTATE '10001'
+        SET MESSAGE_TEXT = 'Pas plus de 3';
+    END if;
+    
+SET resultat2 = (SELECT COUNT(adherentequipe.idAdherent)
+                FROM adherentequipe
+                where adherentequipe.idEquipe = new.idEquipe
+               );
+               
+SET nbPlace = (Select equipe.nbrPlaceEquipe
+              FROM equipe
+              where equipe.idEquipe = new.idEquipe
+              );
+               
+	if resultat2 >= nbPlace THEN
+    	    	SIGNAL SQLSTATE '10004'
+        SET MESSAGE_TEXT = 'Nombre de place atteinte';
+    END IF;
+END
+$$
+DELIMITER ;
 
 -- --------------------------------------------------------
 
@@ -98,7 +156,6 @@ INSERT INTO `competent` (`idEntraineur`, `idSpecialite`) VALUES
 (1, 3),
 (1, 4),
 (1, 5),
-(1, 6),
 (2, 2),
 (3, 1);
 
@@ -152,13 +209,40 @@ CREATE TABLE IF NOT EXISTS `equipe` (
 --
 
 INSERT INTO `equipe` (`idEquipe`, `nomEquipe`, `nbrPlaceEquipe`, `ageMinEquipe`, `ageMaxEquipe`, `sexeEquipe`, `idEntraineur`, `idSport`) VALUES
-(1, 'Les daulphins volants', 10, 5, 8, 'F', 3, 1),
+(1, 'Les daulphins volants', 1, 5, 8, 'F', 3, 1),
 (2, 'Les footeux', 20, 10, 12, 'F', 2, 2),
 (3, 'BriqueCasse', 10, 5, 8, 'F', 1, 3),
 (4, 'FunPoney', 10, 5, 8, 'F', 1, 4),
-(5, 'VolleyTeam', 10, 5, 8, 'F', 1, 5),
-(6, 'Athevite', 10, 5, 8, 'F', 1, 6),
-(7, 'VroumVroum', 10, 5, 8, 'F', 1, 7);
+(5, 'VolleyTeam', 10, 5, 8, 'F', 1, 5);
+
+--
+-- Déclencheurs `equipe`
+--
+DROP TRIGGER IF EXISTS `Entraineur`;
+DELIMITER $$
+CREATE TRIGGER `Entraineur` BEFORE INSERT ON `equipe` FOR EACH ROW BEGIN
+    DECLARE resultat int DEFAULT 0;
+    SET resultat = (Select COUNT(equipe.nomEquipe)
+                    from equipe
+                    where equipe.idEntraineur = new.idEntraineur);
+
+	if resultat > 3 THEN
+    	SIGNAL SQLSTATE '10002'
+        SET MESSAGE_TEXT = 'Pas plus de 3 Entraineurs';
+    END if;
+    
+    SET resultat = (Select COUNT(*)
+                    FROM competent
+                    where competent.idEntraineur = new.idEntraineur and competent.idSpecialite = new.idSport);
+                    
+                   
+    if resultat = 0 THEN
+    	    	SIGNAL SQLSTATE '10003'
+        SET MESSAGE_TEXT = "L'entraineur n'est pas compétent";
+    END if;
+END
+$$
+DELIMITER ;
 
 -- --------------------------------------------------------
 
@@ -195,14 +279,19 @@ CREATE TABLE IF NOT EXISTS `logaction` (
   `dateConnexion` date NOT NULL,
   `actionUtilisateur` varchar(80) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 --
 -- Déchargement des données de la table `logaction`
 --
 
 INSERT INTO `logaction` (`id`, `loginUtilisateur`, `roleUtilisateur`, `dateConnexion`, `actionUtilisateur`) VALUES
-(1, 'admin', 1, '2003-10-23', 'Connexion');
+(1, 'admin', 1, '2003-10-23', 'Connexion'),
+(2, 'admin', 1, '2024-11-23', 'Connexion'),
+(3, 'admin', 1, '2024-11-23', 'Connexion'),
+(4, 'admin', 1, '2024-11-23', 'Connexion'),
+(5, 'admin', 1, '2024-11-23', 'Connexion'),
+(6, 'admin', 1, '2024-11-23', 'Connexion');
 
 -- --------------------------------------------------------
 
@@ -212,7 +301,7 @@ INSERT INTO `logaction` (`id`, `loginUtilisateur`, `roleUtilisateur`, `dateConne
 
 DROP TABLE IF EXISTS `sport`;
 CREATE TABLE IF NOT EXISTS `sport` (
-  `idSport` int NOT NULL,
+  `idSport` int NOT NULL AUTO_INCREMENT,
   `libelle` varchar(32) NOT NULL,
   PRIMARY KEY (`idSport`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
@@ -303,10 +392,11 @@ INSERT INTO `vacataire` (`idEntraineur`, `telephoneVacataire`) VALUES
 --
 
 --
--- Contraintes pour la table `adherent`
+-- Contraintes pour la table `adherentequipe`
 --
-ALTER TABLE `adherent`
-  ADD CONSTRAINT `fk_adherent_equipe` FOREIGN KEY (`idEquipe`) REFERENCES `equipe` (`idEquipe`);
+ALTER TABLE `adherentequipe`
+  ADD CONSTRAINT `adherentequipe_ibfk_1` FOREIGN KEY (`idAdherent`) REFERENCES `adherent` (`idAdherent`),
+  ADD CONSTRAINT `adherentequipe_ibfk_2` FOREIGN KEY (`idEquipe`) REFERENCES `equipe` (`idEquipe`);
 
 --
 -- Contraintes pour la table `competent`

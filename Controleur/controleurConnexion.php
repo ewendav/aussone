@@ -60,7 +60,7 @@ switch ($action)
 							}
 							else 
 							{
-								echo "Il faut 12 caractères dont une MIN, une MAJ, 1 caractère spécial et un nombre";
+								$alert = "Il faut 12 caractères dont une MIN, une MAJ, 1 caractère spécial et un nombre";
 							}
 						}
 						$vue=new vueCentraleConnexion();

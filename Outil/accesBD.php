@@ -1,4 +1,4 @@
-<?php
+ <?php
 
 class accesBD
 {
@@ -177,6 +177,30 @@ class accesBD
 		return $sonId;
 	}
 	
+
+	public function insertSpe($libelle)
+	{
+		$requete = $this->conn->prepare("INSERT INTO SPORT (libelle) VALUES (?)");
+		$requete->bindValue(1,$libelle);
+		if(!$requete->execute())
+		{
+			$error = $requete->errorInfo();
+				if($error[0]==10006)
+				{
+					echo "erreur provoquée par le Trigger : $error[2]\n";
+				}
+				else
+				{
+					echo "erreur provoquée par SQL : $error[2]\n";
+				}
+		}
+		else
+		{
+		}
+		
+	}
+
+
 	/***********************************************************************************************
 	méthode qui va permettre de modifier les éléments d'une équipe.
 	***********************************************************************************************/

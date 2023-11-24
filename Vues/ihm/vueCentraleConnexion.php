@@ -169,6 +169,26 @@
 					<li><a class="dropdown-item" href=index.php?vue=Adherent&action=modifier>Modifier un Adherent</a></li>
 				</ul>
 			</div>
+
+			<div class="dropdown col">
+
+				<button class="btn bg-transparent dropdown-toogle" type="button" id="menuSpe" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+					Menu Spécialité 
+					<span class="caret"></span>
+				</button>
+
+				<ul class="dropdown-menu" aria-labelledby="menuSpe">
+					<li>
+					<a class="dropdown-item" href=index.php?vue=Spe&action=ajouterSpe>
+					Ajouter une Spécialité
+					</a>
+					</li>
+					<li><a class="dropdown-item" href=index.php?vue=Spe&action=modifierSpe>Modifier une Spécialité</a></li>
+				</ul>
+
+			</div>
+
+			
 			<div class="dropdown col">
 			<button class="btn bg-transparent dropdown-toogle" type="button" id="menuAdherent" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
 				Mon profil 
@@ -225,6 +245,7 @@
 
 		}
 
+		
 		public function listeTheme()
 		{
 
