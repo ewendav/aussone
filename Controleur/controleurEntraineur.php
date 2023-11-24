@@ -49,8 +49,16 @@ switch ($action)
 					$vue->VisualiserEntraineur($liste);
 					break;
 				case "modifier" :
+
 					$vue=new vueCentraleConnexion();
+
+
 					$vue->afficheMenuAdmin();
+					$vue=new vueCentraleEntraineur();
+					$listeEntraineur = $this->tousLesEntraineurs->lesEntraineursModif();
+					$modifEnt = $this->tousLesSports->lesSportsAuFormatHTML();
+					$vue->modifEntraineur($listeEntraineur, $modifEnt, $this->tousLesEntraineurs->getListe());
+
 					//reste à faire
 					break;
 				case "visualiserSesEquipes" :

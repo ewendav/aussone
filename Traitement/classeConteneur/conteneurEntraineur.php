@@ -24,6 +24,11 @@ class conteneurEntraineur
 		{
 		return $this->lesEntraineurs->count();
 		}	
+
+		public function getListe()
+		{
+		return $this->lesEntraineurs;
+		}	
 		
 	public function listeDesEntraineurs()
 		{
@@ -43,6 +48,21 @@ class conteneurEntraineur
 			$liste = $liste."<OPTION value='".$unEntraineur->idEntraineur."'>".$unEntraineur->nomEntraineur."</OPTION>";
 			}
 		$liste = $liste."</SELECT>";
+		return $liste;
+		}		
+
+		public function lesEntraineursModif()
+		{
+		$liste = "<div class=entraineurListe><table> ";
+		$nb=0;
+		foreach ($this->lesEntraineurs as $unEntraineur)
+			{
+			$liste = $liste."<tr><td>".$unEntraineur->idEntraineur."</td>       <td class='modifEntraineur'>".$unEntraineur->nomEntraineur."<button type='button' value=".$nb." class='btn btn-primary' data-toggle='modal' name='btnEntraineur' data-target='#exampleModal'>
+			Modifier
+		  </button></td></tr><br>";
+		  		$nb++;
+			}
+		$liste = $liste."</table></div>";
 		return $liste;
 		}		
 	
@@ -79,3 +99,6 @@ class conteneurEntraineur
 			
 	}
 ?> 
+
+
+
