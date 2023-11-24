@@ -12,7 +12,7 @@ class conteneurEquipe
 		$this->lesEquipes = new arrayObject();
 		}
 	
-	//les méthodes habituellement indispensables
+	//les méthodes habituellement indispensablesuhiiuho
 	public function ajouterUneEquipe(int $unIdEquipe, string $unNomEquipe, int $unNbrPlaceEquipe, int $unAgeMinEquipe, int $unAgeMaxEquipe, string $unSexeEquipe,metierEntraineur $unEntraineur)
 	{
 		$uneEquipe = new metierEquipe( idEquipe : $unIdEquipe, nomEquipe : $unNomEquipe, nbrPlaceEquipe : $unNbrPlaceEquipe, ageMinEquipe : $unAgeMinEquipe, ageMaxEquipe : $unAgeMaxEquipe, sexeEquipe : $unSexeEquipe,lEntraineur : $unEntraineur);
@@ -63,7 +63,9 @@ class conteneurEquipe
 			}
 		$liste = $liste."</SELECT>";
 		return $liste;
-		}		
+	}		
+
+	
 	
 	public function donneObjetEquipeDepuisNumero($unIdEquipe)
 		{
