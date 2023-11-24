@@ -128,17 +128,29 @@ class accesBD
 		$requete->bindValue(7,$unIdEntraineur);
 		if(!$requete->execute())
 		{
-			die("Erreur dans insert Equipe : ".$requete->errorCode());
+			$error = $requete->errorInfo();
+				if($error[0]==10006)
+				{
+					echo "erreur provoquée par le Trigger : $error[2]\n";
+				}
+				else
+				{
+					echo "erreur provoquée par SQL : $error[2]\n";
+				}
+		}
+		else
+		{
+			echo "L'ajout est effectué.";
 		}
 		return $sonId;
 	}
 	
 	
 		
-	public function insertAdherent($unNomAdherent,$unPrenomAdherent,$unAgeAdherent, $unSexeAdherent,$unLoginAdherent, $unPwdAdherent,$unIdEquipe)
+	public function insertAdherent($unNomAdherent,$unPrenomAdherent,$unAgeAdherent, $unSexeAdherent,$unLoginAdherent, $unPwdAdherent)
 	{
 		$sonId = $this->donneProchainIdentifiant("ADHERENT","idAdherent")+1;
-		$requete = $this->conn->prepare("INSERT INTO ADHERENT (idAdherent,nomAdherent, prenomAdherent, ageAdherent, sexeAdherent,loginAdherent, pwdAdherent,idEquipe) VALUES (?,?,?,?,?,?,?,?)");
+		$requete = $this->conn->prepare("INSERT INTO ADHERENT (idAdherent,nomAdherent, prenomAdherent, ageAdherent, sexeAdherent,loginAdherent, pwdAdherent,idEquipe) VALUES (?,?,?,?,?,?,?)");
 		$requete->bindValue(1,$sonId);
 		$requete->bindValue(2,$unNomAdherent);
 		$requete->bindValue(3,$unPrenomAdherent);
@@ -146,10 +158,21 @@ class accesBD
 		$requete->bindValue(5,$unSexeAdherent);
 		$requete->bindValue(6,$unLoginAdherent);
 		$requete->bindValue(7,$unPwdAdherent);
-		$requete->bindValue(8,$unIdEquipe);
 		if(!$requete->execute())
 		{
-			die("Erreur dans insert Adherent : ".$requete->errorCode());
+			$error = $requete->errorInfo();
+				if($error[0]==10006)
+				{
+					echo "erreur provoquée par le Trigger : $error[2]\n";
+				}
+				else
+				{
+					echo "erreur provoquée par SQL : $error[2]\n";
+				}
+		}
+		else
+		{
+			echo "L'ajout est effectué.";
 		}
 		return $sonId;
 	}
