@@ -8,6 +8,7 @@ Class metierEquipe
 		{
 			$this->lEntraineur->ajoutEntraineur($this);
 		}
+		
 		public function ajoutEquipe($lEquipe)
 		{
 			$this->idEquipe = $lEquipe->idEquipe;

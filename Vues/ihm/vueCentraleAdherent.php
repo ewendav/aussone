@@ -18,9 +18,6 @@
 							<th scope="col">Age</th>
 							<th scope="col">Sexe</th>
 							<th scope="col">Login</th>
-							<th scope="col">Equipe</th>
-							<th scope="col">Entraineur</th>
-							
 						</tr>
 					</thead>
 					<tbody>';
@@ -28,7 +25,7 @@
 			while ($nbE<sizeof($listeAdherent))
 			{	
 				$i=0;
-				while (($i<7) && ($nbE<sizeof($listeAdherent)))
+				while (($i<5) && ($nbE<sizeof($listeAdherent)))
 				{
 					echo '<td scope>';
 						echo trim($listeAdherent[$nbE]);
