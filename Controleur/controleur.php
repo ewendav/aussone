@@ -1,4 +1,7 @@
 <?php
+
+session_gc(); // vérifie manuellement si des sessions inactif n'ont pas été supr 
+
 	class controleur
 	{
 		private $toutesLesEquipes;

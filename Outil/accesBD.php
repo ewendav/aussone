@@ -15,6 +15,7 @@ class accesBD
 		$this->login="root";
 		$this->passwd="";
 		$this->base="Clubaussone";
+
 		$this->connexion();
 		
 		}

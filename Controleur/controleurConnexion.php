@@ -7,6 +7,10 @@ switch ($action)
 					$_SESSION['pwd']= MD5($_POST['pwd']);
 					$vue = new vueCentraleConnexion();
 					$existe=$this->maBD->verifExistance($_SESSION['role'],$_SESSION['login'],$_SESSION['pwd']);
+
+					session_regenerate_id(true);  // regénère un cokie de sesssion empéchant less attaques par fixations 
+
+
 					$date = date('d-m-y h:i:s');
 					$action = "Connexion";
 					$this->maBD->logAction($_SESSION['login'], $_SESSION['role'], $date, $action);
