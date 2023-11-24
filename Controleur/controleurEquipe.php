@@ -6,7 +6,7 @@ switch ($action)
 					$vue->afficheMenuAdmin();//J'ajoute une nouvelle équipe juste pour voir si cela fonctionne
 					//mais la fonctionnalité reste à faire en réalité
 					$this->toutesLesEquipes->ajouterUneEquipe($this->maBD->donneNumeroMaxEquipe(),'equipe essai',10,5,8,'F',$this->tousLesTitulaires->donneObjetTitulaireDepuisNumero(1));
-					$this->maBD->insertEquipe('equipe essai',10,5,8,'F',1);			
+					// $this->maBD->insertEquipe('equipe essai',10,5,8,'F',1);			
 					break;
 				case "visualiser" :
 					$vue=new vueCentraleConnexion();

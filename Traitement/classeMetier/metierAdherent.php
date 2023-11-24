@@ -4,9 +4,8 @@ Class metierAdherent
 	{
 		
 	//CONSTRUCTEUR-----------------------------------------------------------------------------
-	public function __construct(private metierEquipe $lEquipe, private int $idAdherent=0, private string $nomAdherent='', private string $prenomAdherent='', private int $ageAdherent=0, private string $sexeAdherent='', private string $loginAdherent='', private string $pwdAdherent='')
+	public function __construct(private int $idAdherent=0, private string $nomAdherent='', private string $prenomAdherent='', private int $ageAdherent=0, private string $sexeAdherent='', private string $loginAdherent='', private string $pwdAdherent='')
 		{
-			$this->lEquipe->ajoutEquipe($this);
 		
 		}
 	
@@ -68,7 +67,7 @@ public function __set($attribut, $laValeurDeLAttribut)
 	// méthode permettant d'afficher tous les attributs d'un seul coup
 	public function afficheAdherent()
 	{
-		$liste=$this->nomAdherent.' | '.$this->prenomAdherent.' | '.$this->ageAdherent.' | '.$this->sexeAdherent.' | '.$this->loginAdherent.' | '.$this->lEquipe->nomEquipe.' | '.$this->lEquipe->nomEntraineur.' | ';
+		$liste=$this->nomAdherent.' | '.$this->prenomAdherent.' | '.$this->ageAdherent.' | '.$this->sexeAdherent.' | '.$this->loginAdherent.' | ';
 		return $liste;
 	}	
 

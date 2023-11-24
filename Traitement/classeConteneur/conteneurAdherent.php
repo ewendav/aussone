@@ -12,8 +12,8 @@ Class conteneurAdherent
 		}
 	
 	//les méthodes habituellement indispensables
-	public function ajouterUnAdherent(metierEquipe $lEquipe,int $unIdAdherent, string $unNomAdherent, string $unPrenomAdherent, int $ageAdherent, string $sexeAdherent,string $unLoginAdherent, string $unPwdAdherent)
-		{	$unAdherent = new metierAdherent($lEquipe,$unIdAdherent, $unNomAdherent, $unPrenomAdherent, $ageAdherent, $sexeAdherent,$unLoginAdherent, $unPwdAdherent);
+	public function ajouterUnAdherent(int $unIdAdherent, string $unNomAdherent, string $unPrenomAdherent, int $ageAdherent, string $sexeAdherent,string $unLoginAdherent, string $unPwdAdherent)
+		{	$unAdherent = new metierAdherent($unIdAdherent, $unNomAdherent, $unPrenomAdherent, $ageAdherent, $sexeAdherent,$unLoginAdherent, $unPwdAdherent);
 		$this->lesAdherents->append($unAdherent);
 			
 		}

@@ -5,8 +5,9 @@ switch ($action)
 					$vue=new vueCentraleConnexion();
 					$vue->afficheMenuAdmin();
 					// a faire car on ajoute toujours le meme pour faire des tests
-					$this->tousLesAdherents->ajouterUnAdherent($this->toutesLesEquipes->donneObjetEquipeDepuisNumero(3),$this->maBD->donneNumeroMaxAdherent(),'Essai','adherent',12,'F','essai','essai');
-					$this->maBD->insertAdherent('Essai','adherent',12,'F','essai','essai',3);
+					$this->tousLesAdherents->ajouterUnAdherent($this->maBD->donneNumeroMaxAdherent(),'Essai','adherent',12,'F','essai','essai');
+					// $this->maBD->insertAdherent('Essai','adherent',12,'F','essai','essai');
+					
 					break;
 				case "visualiser" :
 					$vue=new vueCentraleConnexion();

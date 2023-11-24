@@ -199,7 +199,7 @@
 		{   $resultatAdherent=$this->maBD->chargement('adherent');
 			$nbA=0;
 			while ($nbA<sizeof($resultatAdherent))
-			{	$this->tousLesAdherents->ajouterUnAdherent($this->toutesLesEquipes->donneObjetEquipeDepuisNumero($resultatAdherent[$nbA][7]),$resultatAdherent[$nbA][0],$resultatAdherent[$nbA][1],$resultatAdherent[$nbA][2],$resultatAdherent[$nbA][3],$resultatAdherent[$nbA][4],$resultatAdherent[$nbA][5],$resultatAdherent[$nbA][6]);
+			{	$this->tousLesAdherents->ajouterUnAdherent($resultatAdherent[$nbA][0],$resultatAdherent[$nbA][1],$resultatAdherent[$nbA][2],$resultatAdherent[$nbA][3],$resultatAdherent[$nbA][4],$resultatAdherent[$nbA][5],$resultatAdherent[$nbA][6]);
 				$nbA++;
 			}
 		}
