@@ -47,7 +47,7 @@ class conteneurSport
 
 		public function lesSportsAuFormatHTML()
 		{
-		$liste = "<SELECT name = 'idSport'>";
+		$liste = "";
 		foreach ($this->lesSports as $unSport)
 			{
 			$liste = $liste."<OPTION value='".$unSport->idSport."'>".$unSport->libelle."</OPTION>";
