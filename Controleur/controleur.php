@@ -211,10 +211,14 @@ session_gc(); // vérifie manuellement si des sessions inactif n'ont pas été s
 		}
 
 		public function chargeLesEntraineurs()
-		{   $resultatAdherent=$this->maBD->chargement('entraineur');
+		{   
+			$resultatAdherent=$this->maBD->chargement('entraineur');
 			$nbA=0;
+
 			while ($nbA<sizeof($resultatAdherent))
-			{	$this->tousLesEntraineurs->ajouterUnEntraineur($resultatAdherent[$nbA][0],$resultatAdherent[$nbA][1],$resultatAdherent[$nbA][2],$resultatAdherent[$nbA][3]);
+			{	
+				$resultatSpecialitesEntraineurs = $this->maBD->chargementSportEntraineur($nbA+1);
+				$this->tousLesEntraineurs->ajouterUnEntraineur($resultatAdherent[$nbA][0],$resultatAdherent[$nbA][1],$resultatAdherent[$nbA][2],$resultatAdherent[$nbA][3], $resultatSpecialitesEntraineurs);
 				$nbA++;
 			}
 		}

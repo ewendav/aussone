@@ -166,12 +166,25 @@
 
 				foreach($listEntraineur as $Entraineur)
 				{
-					if($Entraineur->idEntraineur == $_POST["btnEntraineur"])
+					if($Entraineur->idEntraineur == 1)
 					{
-						echo $Entraineur->nomEntraineur;
+						$i = 0;
+						echo '<span style="font-size:1.5rem; text-decoration:underline; color:red">'.$Entraineur->nomEntraineur.'</span>';
+						$nba=0;						
+						foreach($Entraineur->lesEntraineursSpe as $SportEnt){
+							echo '<br>';
+							echo $SportEnt[$nba];
+							echo '<br>';
+							'<SELECT name = idSport value='.$i.'>';
+								echo $modifEnt;
+							'</SELECT>';
+							$i++;
+							echo '<br>';
+
+						}
 					}
 				}
-				echo $modifEnt;
+
 
 			echo '
 				</div>

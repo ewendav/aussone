@@ -13,11 +13,12 @@ class conteneurEntraineur
 		}
 	
 	//les méthodes habituellement indispensables
-	public function ajouterUnEntraineur(int $unIdEntraineur, string $unNomEntraineur, string $unLoginEntraineur, string $unPwdEntraineur)
+	public function ajouterUnEntraineur(int $unIdEntraineur, string $unNomEntraineur, string $unLoginEntraineur, string $unPwdEntraineur, $lesSportsEntraineurs)
 	{
 		$unEntraineur = new metierEntraineur(idEntraineur: $unIdEntraineur, nomEntraineur : $unNomEntraineur, loginEntraineur : $unLoginEntraineur, pwdEntraineur : $unPwdEntraineur);
+		$unEntraineur->ajoutEntraineurSpecialites($lesSportsEntraineurs);
 		$this->lesEntraineurs->append($unEntraineur);
-			
+
 	}
 	
 	public function nbEntraineur()

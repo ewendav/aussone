@@ -61,7 +61,6 @@ class conteneurEquipe
 			{
 			$liste = $liste."<OPTION value='".$uneEquipe->idEquipe."'>".$uneEquipe->nomEquipe."</OPTION>";
 			}
-		$liste = $liste."</SELECT>";
 		return $liste;
 	}		
 

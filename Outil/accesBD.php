@@ -225,6 +225,31 @@ class accesBD
 		return $lesInfos;
 	}
 
+	public function chargementSportEntraineur($nba)
+	{
+		$lesInfos=null;
+		$nbTuples=0;
+		$stringQuery="SELECT sport.libelle, sport.idSport FROM sport right join competent on sport.idSport = competent.idSpecialite where idEntraineur=".$nba."";
+		$query = $this->conn->prepare($stringQuery);
+		if($query->execute())
+		{
+			while($row = $query->fetch(PDO::FETCH_NUM))
+			{
+				$lesInfos[$nbTuples] = $row;
+				$nbTuples++;
+			}
+		}
+		else
+		{
+			die('Problème dans chargement : '.$query->errorCode());
+		}
+		return $lesInfos;
+	}
+
+
+
+	
+
 	public function chargementGenre()
 	{
 		$lesInfos=null;
@@ -303,6 +328,9 @@ class accesBD
 				break;
 			case 'SPORT':
 				$stringQuery.='sport';
+				break;
+			case 'SPORTENTRAINEUR':
+				$stringQuery.='competent';
 				break;
 			default:
 				die('Pas une table valide');
