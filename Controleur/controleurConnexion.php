@@ -2,22 +2,31 @@
 switch ($action)
 			{
 				case "Verification":
-					$_SESSION['role'] = $_POST['role'];
-					$_SESSION['login'] = htmlspecialchars($_POST['login']);
-					$_SESSION['pwd']= MD5($_POST['pwd']);
-					$vue = new vueCentraleConnexion();
-					$existe=$this->maBD->verifExistance($_SESSION['role'],$_SESSION['login'],$_SESSION['pwd']);
-
-					// session_regenerate_id(true);  // regénère un cokie de sesssion empéchant less attaques par fixations 
+ $csrf=hash_hmac('sha256','Clé sécurité connexion.php',$_SESSION['key']); 
 
 
-					$date = date('d-m-y h:i:s');
-					$action = "Connexion";
-					$this->maBD->logAction($_SESSION['login'], $_SESSION['role'], $date, $action);
-					$vue->AfficherMenuContextuel($_SESSION['role'],$existe);
-					$_GET['action'] = 'liste';
-					$_GET['vue'] = 'Connexion';
-					$this->affichePage($_GET['action'],$_GET['vue'],$role);
+					if(hash_equals($csrf,$_POST['csrf']))
+						{
+							$_SESSION['role'] = $_POST['role'];
+							$_SESSION['login'] = htmlspecialchars($_POST['login']);
+							$_SESSION['pwd']= MD5($_POST['pwd']);
+							$vue = new vueCentraleConnexion();
+							$existe=$this->maBD->verifExistance($_SESSION['role'],$_SESSION['login'],$_SESSION['pwd']);
+
+							$date = date('d-m-y h:i:s');
+							$action = "Connexion";
+							$this->maBD->logAction($_SESSION['login'], $_SESSION['role'], $date, $action);
+							$vue->AfficherMenuContextuel($_SESSION['role'],$existe);
+							$_GET['action'] = 'liste';
+							$_GET['vue'] = 'Connexion';
+							$this->affichePage($_GET['action'],$_GET['vue'],$role);
+						}
+						else
+						{	
+							$_SESSION['key']=bin2hex(random_bytes(32));
+						}
+
+					
 					break;
 
 				case "Deconnexion" :
@@ -51,7 +60,7 @@ switch ($action)
 							}
 							else 
 							{
-								echo "Il faut 12 caractères dont une MIN, une MAJ, 1 caractère spécial et un nombre";
+								$alert = "Il faut 12 caractères dont une MIN, une MAJ, 1 caractère spécial et un nombre";
 							}
 						}
 						$vue=new vueCentraleConnexion();

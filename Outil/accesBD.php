@@ -1,4 +1,4 @@
-<?php
+ <?php
 
 class accesBD
 {
@@ -14,7 +14,7 @@ class accesBD
 		$this->hote="localhost";
 		$this->login="root";
 		$this->passwd="";
-		$this->base="Clubaussone";
+		$this->base="aussonnegitewen";
 
 		$this->connexion();
 		
@@ -115,10 +115,10 @@ class accesBD
 		return $sonId;
 	}
 		
-	public function insertEquipe($unNomEquipe,$unNbrPlaceEquipe,$unAgeMinEquipe,$unAgeMaxEquipe,$unSexeEquipe,$unIdEntraineur)
+	public function insertEquipe($unNomEquipe,$unNbrPlaceEquipe,$unAgeMinEquipe,$unAgeMaxEquipe,$unSexeEquipe,$unIdEntraineur, $unIdSport)
 	{
 		$sonId = $this->donneProchainIdentifiant("EQUIPE","idEquipe");
-		$requete = $this->conn->prepare("INSERT INTO EQUIPE (idEquipe,nomEquipe,nbrPlaceEquipe,ageMinEquipe,ageMaxEquipe,sexeEquipe,idEntraineur) VALUES (?,?,?,?,?,?,?)");
+		$requete = $this->conn->prepare("INSERT INTO EQUIPE (idEquipe,nomEquipe,nbrPlaceEquipe,ageMinEquipe,ageMaxEquipe,sexeEquipe,idEntraineur,idSport) VALUES (?,?,?,?,?,?,?,?)");
 		$requete->bindValue(1,$sonId);
 		$requete->bindValue(2,$unNomEquipe);
 		$requete->bindValue(3,$unNbrPlaceEquipe);
@@ -126,27 +126,93 @@ class accesBD
 		$requete->bindValue(5,$unAgeMaxEquipe);
 		$requete->bindValue(6,$unSexeEquipe);
 		$requete->bindValue(7,$unIdEntraineur);
+		$requete->bindValue(8,$unIdSport);
 		if(!$requete->execute())
 		{
-			$error = $requete->errorInfo();
-				if($error[0]==10006)
-				{
-					echo "erreur provoquée par le Trigger : $error[2]\n";
-				}
-				else
-				{
-					echo "erreur provoquée par SQL : $error[2]\n";
-				}
+
 		}
 		else
 		{
-			echo "L'ajout est effectué.";
 		}
-		return $sonId;
+		
 	}
 	
-	
+	public function selectAllSports()
+	{
+		$requete = $this->conn->prepare("select idSport, libelle from sport");
+		$lesSports = [];
+
+		if($requete->execute()){
+			while($row = $requete->fetch(PDO::FETCH_NUM))
+			{
+
+				$lesSports[] = $row;
+
+			}
+		}
+
+		return $lesSports;
 		
+	}
+
+		
+	public function selectAllEntraineurs()
+	{
+		$requete = $this->conn->prepare("select idEntraineur, nomEntraineur from entraineur");
+		$lesSports = [];
+
+		if($requete->execute()){
+			while($row = $requete->fetch(PDO::FETCH_NUM))
+			{
+
+				$lesSports[] = $row;
+
+			}
+		}
+
+		return $lesSports;
+		
+	}
+		
+	public function selectAjaxEquipe($type, $id)
+	{
+
+		if($type === "entraineur"){
+			$requete = $this->conn->prepare("select C.idSpecialite, S.libelle from competent C
+			inner join sport S on S.idSport = C.idSpecialite
+				where C.idEntraineur = 
+			" .+ $id);
+		}else{
+			$requete = $this->conn->prepare("select C.idEntraineur, E.nomEntraineur from competent C
+			inner join entraineur E on E.idEntraineur = C.idEntraineur
+				where C.idSpecialite = 
+			" .+ $id);
+		}
+
+		$lesSports = [];
+
+		if($requete->execute()){			
+
+			while($row = $requete->fetch(PDO::FETCH_NUM))
+			{
+
+				$lesSports[] = '<option value="'.$row[0].'">'.$row[1].'</option>'
+				;
+
+
+			}
+		}
+
+
+
+
+		return json_encode($lesSports);
+		
+	}
+
+
+
+
 	public function insertAdherent($unNomAdherent,$unPrenomAdherent,$unAgeAdherent, $unSexeAdherent,$unLoginAdherent, $unPwdAdherent)
 	{
 		$sonId = $this->donneProchainIdentifiant("ADHERENT","idAdherent")+1;
@@ -177,6 +243,30 @@ class accesBD
 		return $sonId;
 	}
 	
+
+	public function insertSpe($libelle)
+	{
+		$requete = $this->conn->prepare("INSERT INTO SPORT (libelle) VALUES (?)");
+		$requete->bindValue(1,$libelle);
+		if(!$requete->execute())
+		{
+			$error = $requete->errorInfo();
+				if($error[0]==10004)
+				{
+					echo "une equipe porte déja ce nom";
+				}
+				else
+				{
+					echo "erreur provoquée par SQL : $error[2]\n";
+				}
+		}
+		else
+		{
+		}
+		
+	}
+
+
 	/***********************************************************************************************
 	méthode qui va permettre de modifier les éléments d'une équipe.
 	***********************************************************************************************/

@@ -301,7 +301,7 @@ INSERT INTO `logaction` (`id`, `loginUtilisateur`, `roleUtilisateur`, `dateConne
 
 DROP TABLE IF EXISTS `sport`;
 CREATE TABLE IF NOT EXISTS `sport` (
-  `idSport` int NOT NULL,
+  `idSport` int NOT NULL AUTO_INCREMENT,
   `libelle` varchar(32) NOT NULL,
   PRIMARY KEY (`idSport`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;

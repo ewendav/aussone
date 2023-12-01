@@ -1,3 +1,8 @@
+<?php
+	$csrf=hash_hmac('sha256','Clé sécurité connexion.php',$_SESSION['key']);
+
+?>
+
 <!-- Le bouton qui va lancer la modal -->
 <button type="button" class="btn Connexion" data-toggle="modal" data-target="#connexion" >
   Se connecter
@@ -17,6 +22,10 @@
 		<div class="container">
 			<div class="row">
 					<form action=index.php?vue=Connexion&action=Verification method=POST align=center>
+						<input type="hidden" name="csrf" value="<?php echo $csrf; ?>">
+
+
+
 						<table class="table table-sm">
 							<tbody class=centre>
 								<tr>
