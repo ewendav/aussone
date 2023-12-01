@@ -3,10 +3,23 @@ switch ($action)
 			{
 				case "ajouter":
 					$vue=new vueCentraleConnexion();
-					$vue->afficheMenuAdmin();//J'ajoute une nouvelle équipe juste pour voir si cela fonctionne
-					//mais la fonctionnalité reste à faire en réalité
+					$vue->afficheMenuAdmin();
+
+					$vue= new vueCentraleEquipe();
+					$vue->AjouterEquipe($this->maBD->selectAllSports(), $this->maBD->selectAllEntraineurs());
+					
 					$this->toutesLesEquipes->ajouterUneEquipe($this->maBD->donneNumeroMaxEquipe(),'equipe essai',10,5,8,'F',$this->tousLesTitulaires->donneObjetTitulaireDepuisNumero(1));
-					$this->maBD->insertEquipe('equipe essai',10,5,8,'F',1);			
+
+
+					if(isset($_POST['libelle'])){
+
+						echo '<div class="d-flex flex-row align-items-center justify-content-center">';
+
+							$result = $this->maBD->insertEquipe($_POST['libelle'],$_POST['nbPlace'],$_POST['ageMin'],$_POST['ageMax'],$_POST['sexe'],$_POST['entraineur'],$_POST['sport']);			
+
+						echo '</div>';
+					}
+					
 					break;
 				case "visualiser" :
 					$vue=new vueCentraleConnexion();
@@ -45,4 +58,8 @@ switch ($action)
 					$this->toutesLesEquipes->modifierUneEquipe($idEquipe, $nomEquipe, $nbrPlaceEquipe, $ageMinEquipe, $ageMaxEquipe, $sexeEquipe, $leTitulaire);
 					
 			}
+
+
+
+
 ?>

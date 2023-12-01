@@ -1,5 +1,23 @@
 <?php
+
+
+session_set_cookie_params([
+	'lifetime' => 0, // le cookie expire dés qur le navigateur est fermé 
+    'path' => '/',  // le cookie sera envoyé a la racine .?????????
+    'domain' => '', // assure que le cookie n'est dipso que sur le domaine courant
+    'secure' => true, // Le cookie envoyé que sur co HTTPS
+    'httponly' => true, // empeche acces javascript
+    'samesite' => 'Strict', //le cookie ne serait envoyé qu'au requète du même site 
+]);
+
+
 session_start();
+
+if(!isset($_SESSION['key']))
+{
+		$_SESSION['key']=bin2hex(random_bytes(32));		
+}
+
 	function my_autoloader($class) 
 	{	$result=substr($class,0,5);
 		if (strcmp($result, 'contr') == 0)

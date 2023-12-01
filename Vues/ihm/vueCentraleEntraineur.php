@@ -140,9 +140,84 @@
 					</form>';
 						break;
 					}
+
 			
 		}
+
+
 		
+		
+		public function modifEntraineur($message, $modifEnt, $listEntraineur)
+		{
+			echo '<form action=index.php?vue=Entraineur&action=modifier method=POST>';
+			echo $message;
+
+			echo '
+		  
+		  <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+			<div class="modal-dialog" role="document">
+			  <div class="modal-content">
+				<div class="modal-header">
+				  <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+				  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+				  </button>
+				</div>
+				<div class="modal-body">';
+
+				foreach($listEntraineur as $Entraineur)
+				{
+					if($Entraineur->idEntraineur == 1)
+					{
+						$i = 0;
+						echo '<span style="font-size:1.5rem; text-decoration:underline; color:red">'.$Entraineur->nomEntraineur.'</span>';
+						$nba=0;						
+						foreach($Entraineur->lesEntraineursSpe as $SportEnt){
+							echo '<br>';
+							echo $SportEnt[$nba];
+							echo '<br>
+							<SELECT name="idSport'.$i.'" value="'.$i.'">';
+							echo '<option selected disabled>---Séléctionner---</option>';
+								echo $modifEnt;
+							echo '</SELECT>
+							<input type="hidden" name="SportDeb'.$i.'" value="'.$SportEnt[1].'"></input>';
+							$i++;
+							echo '<br>';
+						}
+					}
+				}
+
+
+
+				
+			echo '				</div>
+				<div class="modal-footer">
+				  <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+				  <button type="submit" value="ok" name="ok" class="btn btn-primary">Save changes</button>
+				</div>
+			  </div>
+			</div>
+		  </div></form>';
+
+		  echo "    <script>
+		  document.addEventListener('DOMContentLoaded', function() {
+			  // Récupérer les boutons
+			  var monBouton = document.getElementById('btnEntraineur');s
+  
+			  // Ajouter un gestionnaire d'événement au clic sur le premier bouton
+			  monBouton.addEventListener('click', function() {
+				  // Récupérer la valeur du bouton et l'afficher
+				  var valeurDuBouton = monBouton.value;
+			  });
+
+			  
+  
+		  });
+	  </script>";
+		}
+
 		
 		
 	}
+
+	

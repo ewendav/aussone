@@ -2,14 +2,13 @@
 Class metierEquipe
 	{
 	
-	
-	
 	//CONSTRUCTEUR-----------------------------------------------------------------------------
 	
-	public function __construct(private metierEntraineur $lEntraineur, private int $idEquipe=0, private string $nomEquipe='', private int $nbrPlaceEquipe=0, private int $ageMinEquipe=0, private int $ageMaxEquipe=0, private string $sexeEquipe='')
+	public function __construct(private metierEntraineur $lEntraineur,private int $idEquipe=0, private string $nomEquipe='', private int $nbrPlaceEquipe=0, private int $ageMinEquipe=0, private int $ageMaxEquipe=0, private string $sexeEquipe='')
 		{
 			$this->lEntraineur->ajoutEntraineur($this);
 		}
+		
 		public function ajoutEquipe($lEquipe)
 		{
 			$this->idEquipe = $lEquipe->idEquipe;
