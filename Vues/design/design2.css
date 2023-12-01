@@ -168,6 +168,76 @@ ul {
     transition-delay: 0.2s;
 }
 
+.entraineurListe{
+	display: flex;
+	justify-content: space-evenly;
+	padding: 100px;
+	flex-direction: column;
+	height: 20%;
+	width: 70%;
+}
 
+.entraineurListe span{
+	font-size: 1.3rem;
+	font-weight: bold;
+	text-decoration: underline;
+	color: #222274;
+}
 
+.entraineurListe table, .entraineurListe table td{
+	border: 1px solid gray;
+}
 
+.entraineurListe table td{
+	font-size: 1.3rem;
+	height: 100px;
+	padding:10px;
+}
+
+.modifEntraineur{
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+}
+
+.btnEntraineur {
+	--b: 3px;   /* border thickness */
+	--s: .15em; /* size of the corner */
+	--c: #BD5532;
+	
+	padding: calc(.05em + var(--s)) calc(.3em + var(--s));
+	color: var(--c);
+	--_p: var(--s);
+	background:
+	  conic-gradient(from 90deg at var(--b) var(--b),#0000 90deg,var(--c) 0)
+	  var(--_p) var(--_p)/calc(100% - var(--b) - 2*var(--_p)) calc(100% - var(--b) - 2*var(--_p));
+	transition: .3s linear, color 0s, background-color 0s;
+	outline: var(--b) solid #0000;
+	outline-offset: .2em;
+  }
+  .btnEntraineur:hover,
+  .btnEntraineur:focus-visible{
+	--_p: 0px;
+	outline-color: var(--c);
+	outline-offset: .05em;
+  }
+  .btnEntraineur:active {
+	background: var(--c);
+	color: #fff;
+  }
+  
+  .btnEntraineur {
+	font-family: system-ui, sans-serif;
+	font-weight: bold;
+	font-size: 1.4rem;
+	cursor: pointer;
+	border: none;
+	margin: .1em;
+  }
+
+  form{
+	height: 50vh;
+	display: flex;
+	justify-content: center;
+	align-items: center;  
+}

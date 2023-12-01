@@ -2,8 +2,8 @@
 switch ($action)
 			{
 				case "Verification":
+ $csrf=hash_hmac('sha256','Clé sécurité connexion.php',$_SESSION['key']); 
 
-				 $csrf=hash_hmac('sha256','Clé sécurité connexion.php',$_SESSION['key']); 
 
 					if(hash_equals($csrf,$_POST['csrf']))
 						{
