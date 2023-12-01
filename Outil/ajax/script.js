@@ -4,8 +4,8 @@
 
 document.addEventListener("DOMContentLoaded", function() {
 
-let selectSport = document.querySelector(".selectSport");
-
+    let selectSport = document.querySelector(".selectSport");
+let selectEntraineur = document.querySelector(".selectEntraineur");
 
 
 let selectAgeMax = document.querySelector(".ageMax");
@@ -19,38 +19,37 @@ selectAgeMin.addEventListener("change", ()=>{
     selectAgeMax.setAttribute("min", selectAgeMin.value)
 })
 
-console.log(selectAgeMax)
 
-function bullshit(){
-    let id_slug = selectEntraineur.value;
+    selectEntraineur.addEventListener("change", ()=>{   
+
+        let id_slug = selectEntraineur.value;
     
-    fetch("Outil/ajax/constructionRequeteAjax.php?id_slug=" + id_slug 
-    + "&function_slug=" + "listeEquipe" 
-    +  "&nomSelect_slug=" + "entraineur" , {
-        method: 'GET',
-        headers: {
-            'Content-Type': 'application/json',
-        },
+        fetch("Outil/ajax/constructionRequeteAjax.php?id_slug=" + id_slug 
+        + "&function_slug=" + "listeEquipe" 
+        +  "&nomSelect_slug=" + "entraineur" , {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+        })
+            .then((response) => {
+               return response.json()
+            })
+    
+            .then((responseJ)=>{
+    
+                selectSport.innerHTML ="";
+    
+                responseJ.forEach(e => {
+                    selectSport.innerHTML += e;
+                });
+            })
+    
+            .catch(function (error) {
+                console.error(error);
+            })
+       
     })
-        .then((response) => {
-           return response.json()
-        })
-
-        .then((responseJ)=>{
-
-            selectSport.innerHTML ="";
-
-            responseJ.forEach(e => {
-                selectSport.innerHTML += e;
-            });
-        })
-
-        .catch(function (error) {
-            console.error(error);
-        })
-}
-
-    let event = selectEntraineur.addEventListener("change", bullshit())
 
 // afiche l'erreur en swag => il faut modifier la partie dans le if match pour 
 // l'afficher a l'endroit voulu 
