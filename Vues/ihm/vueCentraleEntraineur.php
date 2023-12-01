@@ -149,6 +149,7 @@
 		
 		public function modifEntraineur($message, $modifEnt, $listEntraineur)
 		{
+			echo '<form action=index.php?vue=Entraineur&action=modifier method=POST>';
 			echo $message;
 
 			echo '
@@ -174,27 +175,29 @@
 						foreach($Entraineur->lesEntraineursSpe as $SportEnt){
 							echo '<br>';
 							echo $SportEnt[$nba];
-							echo '<br>';
-							'<SELECT name = idSport value='.$i.'>';
+							echo '<br>
+							<SELECT name="idSport'.$i.'" value="'.$i.'">';
+							echo '<option selected disabled>---Séléctionner---</option>';
 								echo $modifEnt;
-							'</SELECT>';
+							echo '</SELECT>
+							<input type="hidden" name="SportDeb'.$i.'" value="'.$SportEnt[1].'"></input>';
 							$i++;
 							echo '<br>';
-
 						}
 					}
 				}
 
 
-			echo '
-				</div>
+
+				
+			echo '				</div>
 				<div class="modal-footer">
 				  <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-				  <button type="button" class="btn btn-primary">Save changes</button>
+				  <button type="submit" value="ok" name="ok" class="btn btn-primary">Save changes</button>
 				</div>
 			  </div>
 			</div>
-		  </div>';
+		  </div></form>';
 
 		  echo "    <script>
 		  document.addEventListener('DOMContentLoaded', function() {

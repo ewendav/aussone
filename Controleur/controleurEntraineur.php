@@ -59,7 +59,35 @@ switch ($action)
 					$modifEnt = $this->tousLesSports->lesSportsAuFormatHTML();
 					$vue->modifEntraineur($listeEntraineur, $modifEnt, $this->tousLesEntraineurs->getListe());
 
-					//reste à faire
+					if(isset($_POST["ok"]))
+					{
+						$idEntraineur = 1;
+						if(isset($_POST['idSport0']))
+							{
+								$ancienSport = $_POST['SportDeb0'];
+								echo $ancienSport;
+								$select0 = $_POST["idSport0"];
+								$this->maBD->modifEntraineurSpe($select0, $idEntraineur,$ancienSport);
+							}
+	
+							if(isset($_POST["idSport1"]))
+							{
+								$ancienSport = $_POST['SportDeb1'];
+								echo $ancienSport;
+								$select1 = $_POST["idSport1"];
+								$this->maBD->modifEntraineurSpe($select1, $idEntraineur, $ancienSport);
+							}
+	
+							if(isset($_POST["idSport2"][2]))
+							{
+								$ancienSport = $_POST['SportDeb2'];	
+								$select2 = $_POST["idSport2"];
+								$this->modifEntraineurSpe($select2, $idEntraineur, $ancienSport);
+							}
+							
+
+					}
+
 					break;
 				case "visualiserSesEquipes" :
 					$vue=new vueCentraleConnexion();
@@ -69,9 +97,7 @@ switch ($action)
 				case "modifierSonProfil" :
 					try
 					{
-						$vue=new vueCentraleConnexion();
-						$vue->afficheMenuEntraineur();
-						$vue->profilEntraineur();
+
 					if (isset($_POST['newMdp']))
 						{
 							$newMdp= $_POST['newMdp'];

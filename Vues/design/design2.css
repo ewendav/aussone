@@ -234,3 +234,10 @@ ul {
 	border: none;
 	margin: .1em;
   }
+
+  form{
+	height: 50vh;
+	display: flex;
+	justify-content: center;
+	align-items: center;  
+}
