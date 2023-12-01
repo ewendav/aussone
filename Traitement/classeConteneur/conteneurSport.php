@@ -43,11 +43,21 @@ class conteneurSport
 			{	$liste = $liste.$unSport->afficheSport();
 			}
 		return $liste;
-		}	
+		}
+
+		public function lesSportsAuFormatHTML()
+		{
+		$liste = "";
+		foreach ($this->lesSports as $unSport)
+			{
+			$liste = $liste."<OPTION value='".$unSport->idSport."'>".$unSport->libelle."</OPTION>";
+			}
+		$liste = $liste."</SELECT>";
+		return $liste;
+	}		
 	
 	public function donneObjetSportDepuisNumero($unIdSport)
-		{
-		
+	{
 		$trouve=false;
 		$leBonSport=null;
 		foreach ($this->lesSports as $unSport)

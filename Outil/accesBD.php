@@ -315,6 +315,31 @@ class accesBD
 		return $lesInfos;
 	}
 
+	public function chargementSportEntraineur($nba)
+	{
+		$lesInfos=null;
+		$nbTuples=0;
+		$stringQuery="SELECT sport.libelle, sport.idSport FROM sport right join competent on sport.idSport = competent.idSpecialite where idEntraineur=".$nba."";
+		$query = $this->conn->prepare($stringQuery);
+		if($query->execute())
+		{
+			while($row = $query->fetch(PDO::FETCH_NUM))
+			{
+				$lesInfos[$nbTuples] = $row;
+				$nbTuples++;
+			}
+		}
+		else
+		{
+			die('Problème dans chargement : '.$query->errorCode());
+		}
+		return $lesInfos;
+	}
+
+
+
+	
+
 	public function chargementGenre()
 	{
 		$lesInfos=null;
@@ -393,6 +418,9 @@ class accesBD
 				break;
 			case 'SPORT':
 				$stringQuery.='sport';
+				break;
+			case 'SPORTENTRAINEUR':
+				$stringQuery.='competent';
 				break;
 			default:
 				die('Pas une table valide');
@@ -597,5 +625,48 @@ class accesBD
 			die("Erreur de modif : ".$requete->errorCode());
 		}
 	}
+
+	public function ancienSport($ligneSel, $idAdherent)
+	{
+		$requete = $this->conn->prepare("select idSpecialite from competent where idEntraineur = ? ");
+		$requete->bindValue(1,$idAdherent);
+
+		if($requete->execute())
+		{
+			$nb = 1;
+			while ( $row = $requete->fetch ( PDO::FETCH_COLUMN))
+			{ 		
+				if ($ligneSel == $nb)
+				{
+					$vretour = $row;
+					echo $vretour;
+				}
+				$nb++;
+			}
+		}
+		else
+		{
+			die('Problème dans chargement : '.$requete->errorCode());
+		}
+		return $vretour;
+	}
+
+
+
+	public function modifEntraineurSpe($changement, $idAdherent, $ancSport)
+	{
+
+		$requete = $this->conn->prepare("UPDATE competent SET idSpecialite = ? where idEntraineur = ? and idSpecialite = ?");
+		$requete->bindValue(1,$changement);
+		$requete->bindValue(2,$idAdherent);
+		$requete->bindValue(3,$ancSport);
+
+		if(!$requete->execute())
+		{
+			die("Erreur de modif : ".$requete->errorCode());
+		}
+	}
+
+
 
 }

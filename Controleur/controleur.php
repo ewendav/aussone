@@ -6,6 +6,7 @@ session_gc(); // vérifie manuellement si des sessions inactif n'ont pas été s
 	{
 		private $toutesLesEquipes;
 		private $tousLesAdherents;
+		private $tousLesEntraineurs;
 		private $tousLesVacataires;
 		private $tousLesTitulaires;
 		private $tousLesSports;
@@ -23,6 +24,7 @@ session_gc(); // vérifie manuellement si des sessions inactif n'ont pas été s
 			$this->toutesLesEquipes = new conteneurEquipe();
 			$this->tousLesAdherents = new conteneurAdherent();
 			$this->tousLesSports = new conteneurSport();
+			$this->tousLesEntraineurs = new conteneurEntraineur();
 			
 	
 			$this->chargeLesVacataires();
@@ -30,6 +32,7 @@ session_gc(); // vérifie manuellement si des sessions inactif n'ont pas été s
 			$this->chargeLesEquipes();
 			$this->chargeLesAdherents();
 			$this->chargeLesSports();
+			$this->chargeLesEntraineurs();
 			
 			
 		}
@@ -214,6 +217,31 @@ session_gc(); // vérifie manuellement si des sessions inactif n'ont pas été s
 				$nbA++;
 			}
 		}
+
+
+		public function chargeLesEntraineurs()
+		{   
+			$resultatAdherent=$this->maBD->chargement('entraineur');
+			$nbA=0;
+
+			while ($nbA<sizeof($resultatAdherent))
+			{	
+				$resultatSpecialitesEntraineurs = $this->maBD->chargementSportEntraineur($nbA+1);
+				$this->tousLesEntraineurs->ajouterUnEntraineur($resultatAdherent[$nbA][0],$resultatAdherent[$nbA][1],$resultatAdherent[$nbA][2],$resultatAdherent[$nbA][3], $resultatSpecialitesEntraineurs);
+				$nbA++;
+			}
+		}
+
+		public function chargeLesSports()
+		{   $resultatSport=$this->maBD->chargement('sport');
+
+			$nbA=0;
+			while ($nbA<sizeof($resultatSport))
+			{	$this->tousLesSports->ajouterUnSport($resultatSport[$nbA][0], $resultatSport[$nbA][1]);
+				$nbA++;
+			}
+		}
+
 
 
 

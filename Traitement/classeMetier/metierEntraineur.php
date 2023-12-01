@@ -1,16 +1,19 @@
 <?php
 Class metierEntraineur
 	{
+		private $lesEntraineursSpe = [];
 	//CONSTRUCTEUR-----------------------------------------------------------------------------
 	public function __construct(private int $idEntraineur=0, private string $nomEntraineur='',private string $loginEntraineur='', private string $pwdEntraineur='')
-		{
-		
-		}
+	{
+
+	}
+
 	public function ajoutEntraineur($lEntraineur)
 		{
 			$this->idEntraineur = $lEntraineur->idEntraineur;
 			$this->nomEntraineur = $lEntraineur->nomEntraineur;
 		}
+		
 	//ACCESSEURS-------------------------------------------------------------------------------
 	public function __get($attribut)
 		{	switch ($attribut)
@@ -20,6 +23,8 @@ Class metierEntraineur
 					return $this->nomEntraineur; break;
 				case 'loginEntraineur' :
 					return $this->loginEntraineur; break;
+				case 'lesEntraineursSpe':
+					return $this->lesEntraineursSpe; break;
 				case 'pwdEntraineur' :
 					return $this->pwdEntraineur; break;
 				default :
@@ -54,6 +59,11 @@ Class metierEntraineur
 		return $this->idEntraineur.' | '.$this->nomEntraineur.' | '.$this->loginEntraineur.' |';
 		}			    
 	
+		public function ajoutEntraineurSpecialites($lesEntSpecialites)
+		{
+
+			$this->lesEntraineursSpe = $lesEntSpecialites;	
+		}	
 	}
 	
 ?>
