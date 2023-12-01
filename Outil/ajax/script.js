@@ -1,10 +1,4 @@
-
-
-
-
-document.addEventListener("DOMContentLoaded", function() {
-
-    let selectSport = document.querySelector(".selectSport");
+let selectSport = document.querySelector(".selectSport");
 let selectEntraineur = document.querySelector(".selectEntraineur");
 
 
@@ -49,41 +43,46 @@ selectAgeMin.addEventListener("change", ()=>{
                 console.error(error);
             })
        
-    })
-
-// afiche l'erreur en swag => il faut modifier la partie dans le if match pour 
-// l'afficher a l'endroit voulu 
-let error = document.querySelector('font');
-if (error !== null){
-
-    let inputString = document.querySelector('font > table > tbody > tr > th').innerHTML;
+    });
 
 
-    let regexPattern = /1644(.*?)in C:/g;
+document.addEventListener("DOMContentLoaded", function() {
 
-    let match = regexPattern.exec(inputString);
+    // afiche l'erreur en swag => il faut modifier la partie dans le if match pour 
+    // l'afficher a l'endroit voulu 
+    let error = document.querySelector('.xdebug-error');
+    if (error !== null){
 
-    if (match && match[1]) {
-        let extractedText = match[1].trim();
-        // l'instruction en dessous affiche l'erreur sous le form 
-        document.querySelector('.formEquipe').innerHTML += 
-    
-    `<div class=' text-center mb-4 mt-4 h3 text-danger d-flex flex-row align-items-center justify-content-center'>
-    Erreur : <br/>    
-    
-    ${extractedText}
-    </div>
-    `;
-    } 
-    
-    error.style.display='none';
+        let inputString = document.querySelector('font > table > tbody > tr > th').innerHTML;
 
 
-    if(document.querySelector('pre') !== null){
-        document.querySelector('pre').style.display='none';
+        let regexPattern = /1644(.*?)in C:/g;
+
+        let match = regexPattern.exec(inputString);
+
+        if (match && match[1]) {
+            let extractedText = match[1].trim();
+            // l'instruction en dessous affiche l'erreur sous le form 
+
+
+            let textDiv = document.createElement('div');
+
+            textDiv.classList.add('text-center', 'mb-4', 'mt-4' ,'h3' ,'text-danger', 'd-flex', 'flex-row', 'align-items-center', 'justify-content-center')
+
+            textDiv.innerHTML = `
+            Erreur : <br/>        
+                ${extractedText}
+           `;
+
+
+            document.querySelector('.formEquipe').appendChild(textDiv);
+        }     
+        error.style.display='none';
+        if(document.querySelector('pre') !== null){
+            document.querySelector('pre').style.display='none';
+        }
+
     }
-
-}
 
 });
 
