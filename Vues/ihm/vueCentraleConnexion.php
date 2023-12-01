@@ -182,9 +182,7 @@
 					<a class="dropdown-item" href=index.php?vue=Spe&action=ajouterSpe>
 					Ajouter une Spécialité
 					</a>
-					</li>
-					<li><a class="dropdown-item" href=index.php?vue=Spe&action=modifierSpe>Modifier une Spécialité</a></li>
-				</ul>
+					</ul>
 
 			</div>
 

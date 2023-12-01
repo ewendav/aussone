@@ -17,6 +17,117 @@
 				  </form>
 			';
 		}
+
+		public function AjouterEquipe($lesSports, $lesEntraineurs){
+
+			$lesSportsListe ='';
+			$lesEntraineursListe ='';
+
+			foreach($lesSports as $sport){			
+
+				$lesSportsListe .=
+				'
+				<option value=" '. $sport[0] .'  ">'. $sport[1]  .'</option>
+				';
+
+			};
+
+			foreach($lesEntraineurs as $e){			
+
+				$lesEntraineursListe .=
+				'
+				<option value=" '. $e[0] .'  ">'. $e[1]  .'</option>
+				';
+
+			};
+			
+
+			echo'
+			<div class="mt-5 
+			d-flex flex-column align-items-center justify-content-center">
+    
+	
+			<form method="post" class="formEquipe" action="index.php?vue=Equipe&action=ajouter">
+        <h3 class="text-center mb-3" >Ajouter une Equipe</h3>
+
+        <div class=" mb-4 d-flex flex-row align-items-center justify-content-center">    
+			<label for="1">Nom Equipe :</label>
+            <input id="1" class="mx-2" name="libelle" type="text">                 
+        </div>
+
+		<div class=" mb-4 d-flex flex-row align-items-center justify-content-center">  
+			<label for="2">Nombre de places :</label>          
+            <input id="2" class="mx-2" name="nbPlace" type="number" min="0">                 
+        </div>
+        
+
+		<div class=" mb-4 d-flex flex-row align-items-center justify-content-center">         
+			<label for="3">Age minimum des adherents :</label>         			
+            <input id="3" class="mx-2 ageMin" name="ageMin" type="number" min="0" max="100">                 
+        </div>
+
+		
+		<div class=" mb-4 d-flex flex-row align-items-center justify-content-center">         
+			<label for="4">Age maximum des adherents :</label>         			
+            <input id="4" class="mx-2 ageMax" name="ageMax" type="number" min="0" max="100">                 
+        </div>
+
+		<div class=" mb-4 d-flex flex-row align-items-center justify-content-center">         
+			<label for="5">Sexe des adherents :</label>      
+
+			<select class="mx-2" name="sexe" id="5">
+				<option value="homme">Homme</option>
+				<option value="femme">Femme</option>
+				<option value="homme">autre</option>
+			</select>
+			
+        </div>
+
+		
+		<div class=" mb-4 d-flex flex-row align-items-center justify-content-center">         
+			<label for="6">Entraineur :</label>      
+
+			<select class="mx-2 selectEntraineur" name="entraineur" id="6">';
+
+			echo $lesEntraineursListe; 
+
+			echo '
+	
+			</select>
+			
+        </div>
+
+		<div class=" mb-4 d-flex flex-row align-items-center justify-content-center">  
+
+			<label for="7">Sport :</label>      
+
+			<select class="mx-2 selectSport" name="sport" id="7">';
+			
+			
+			
+					echo $lesSportsListe;
+			echo '
+								
+				
+			</select>
+			
+        </div>
+    
+        
+        
+        <input class="btn mt-3" type="submit" value="créer">
+    </form>
+
+</div>
+			';
+
+			echo '<script src="Outil/ajax/script.js"></script>';
+			
+
+		}
+
+
+
 		public function visualiserEquipe($message)
 		{
 						
