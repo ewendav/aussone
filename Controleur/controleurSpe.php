@@ -29,6 +29,41 @@ switch ($action)
                 
 				break;
 
+
+                case "vueModifierSpe":
+                    $vueMenu =new vueCentraleConnexion();
+					$vueMenu ->afficheMenuAdmin();
+					$vue=new vueCentraleSpe();                    
+
+                    $vue->modifierSpe($this->maBD->selectAllSpe());      
+
+                    break;
+
+                case "modifierSpe":
+
+                    
+                    foreach($this->maBD->selectCountSpe() as $id[0]){
+
+                        if (isset($_POST["libelle".$id[0]])){
+                            if ($_POST["libelle".$id[0]] !== ""){
+                                $this->maBD->updateSpe($id, $_POST["libelle".$id[0]]);
+                            }
+                        }
+
+            
+
+                    }
+
+                    $vueMenu =new vueCentraleConnexion();
+					$vueMenu ->afficheMenuAdmin();
+					$vue=new vueCentraleSpe();                    
+
+                    $vue->modifierSpe($this->maBD->selectAllSpe());     
+
+            
+
+                    break;
+
 				
 			}
 ?>

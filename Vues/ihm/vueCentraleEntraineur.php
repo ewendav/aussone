@@ -25,6 +25,66 @@
 						  </form>';
 					
 		}
+
+
+		public function visualiserAdmin($result){
+
+
+			$listeEntrianeurs = "";
+
+			
+			foreach($result as $entraineurs){
+
+
+				$listeEntrianeurs .= '
+				
+				<tr>
+					<td>'.$entraineurs[0][0].'</td>
+					<td>'.$entraineurs[0][1].'</td>
+					';
+
+				foreach($entraineurs[1] as $sport){
+
+					$listeEntrianeurs .= '
+					<td>'.$sport[1].'</td>
+					
+				
+				';
+				}
+
+				$listeEntrianeurs .= '</tr>';
+
+				
+
+			}
+
+			echo '<table class="table">
+				<tr>
+					<td>
+						id
+					</td> 
+					<td>
+						nom
+					</td>
+					<td>
+						sport 1
+					</td>        
+					<td>
+						sport 2
+					</td>
+					<td>
+						sport 3
+					</td>
+				</tr>
+
+				'.$listeEntrianeurs.'
+			
+			
+			</table>';
+
+		}
+
+
 		public function visualiserEntraineur($liste)
 		{
 			$listeEntraineur=explode("|",$liste);

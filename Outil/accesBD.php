@@ -31,6 +31,8 @@ class accesBD
             die("Connection à la base de données échouée".$e->getMessage());
         }
 	}
+
+
 	
 	public function verifExistance($role,$login,$pwd)
 	{   
@@ -114,6 +116,87 @@ class accesBD
 
 		return $sonId;
 	}
+
+	public function selectAllSpe()
+	{
+		$requete = $this->conn->prepare("select * from sport");
+		$lesSports = [];
+
+		if($requete->execute()){
+			while($row = $requete->fetch(PDO::FETCH_NUM))
+			{
+
+				$lesSports[] = $row;
+
+			}
+		}
+
+		return $lesSports;
+		
+	}
+
+	public function visualiserEntraineurAdmin(){
+
+		$requete = $this->conn->prepare("select idEntraineur, nomEntraineur from entraineur");
+		$lesSports = [];
+		$lesEntraineurs = [];
+
+		if($requete->execute()){
+			while($row = $requete->fetch(PDO::FETCH_NUM))
+			{
+
+				$requete2 = $this->conn->prepare("select S.idSport, S.libelle from sport S
+				inner join competent C on C.idSpecialite = S.idSport
+				where C.idEntraineur = ".$row[0].";
+				");
+
+				if($requete2->execute()){
+					unset($lesSports);
+					$lesSports = [];
+
+					while($row2 = $requete2->fetch(PDO::FETCH_NUM))
+					{
+						$lesSports[] = $row2;
+	
+					}
+
+					$lesEntraineurs[] = [$row, $lesSports];
+				}			
+
+
+			}
+		}
+
+		return $lesEntraineurs;
+
+	}
+
+	public function selectCountSpe()
+	{
+		$requete = $this->conn->prepare("select idSport from sport");
+
+		if($requete->execute()){
+			while($row = $requete->fetch(PDO::FETCH_NUM))
+			{
+
+				$lesSports[] = $row[0];
+
+			}
+		}
+
+		return $lesSports;
+		
+	}
+
+	public function updateSpe($id, $libelle){
+		$requete = $this->conn->prepare("update sport set libelle ='".$libelle."' where idSport =".$id[0].";");
+
+		$requete->execute();
+		
+	}
+
+
+	
 		
 	public function insertEquipe($unNomEquipe,$unNbrPlaceEquipe,$unAgeMinEquipe,$unAgeMaxEquipe,$unSexeEquipe,$unIdEntraineur, $unIdSport)
 	{
@@ -477,6 +560,8 @@ class accesBD
 			die('Erreur sur l identifiant de l entraineur : '+$requete->errorCode());
 		}
 	}
+
+
 	
 	public function donneNumeroMaxEquipe()
 	{

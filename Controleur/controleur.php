@@ -242,9 +242,6 @@ session_gc(); // vérifie manuellement si des sessions inactif n'ont pas été s
 			}
 		}
 
-
-
-
 		public function changerMdp($newMdp)
 		{
 			$this->maBD->changerLeMdp($newMdp);
@@ -271,15 +268,15 @@ session_gc(); // vérifie manuellement si des sessions inactif n'ont pas été s
 		}
 
 		
-		public function chargeLesSports()
-		{   $resultatSport=$this->maBD->chargement('sport');
+		// public function chargeLesSports()
+		// {   $resultatSport=$this->maBD->chargement('sport');
 
-			$nbA=0;
-			while ($nbA<sizeof($resultatSport))
-			{	$this->tousLesSports->ajouterUnSport($resultatSport[$nbA][0], $resultatSport[$nbA][1]);
-				$nbA++;
-			}
-		}
+		// 	$nbA=0;
+		// 	while ($nbA<sizeof($resultatSport))
+		// 	{	$this->tousLesSports->ajouterUnSport($resultatSport[$nbA][0], $resultatSport[$nbA][1]);
+		// 		$nbA++;
+		// 	}
+		// }
 	
 	
 	}

@@ -1,5 +1,5 @@
 <!-- Le bouton qui va lancer la modal -->
-  <button type="button" class=" btn btn-outline-primary" data-toggle="modal" data-target="#deconnexion">
+  <button type="button" class=" mt-3 btn btn-outline-primary" data-toggle="modal" data-target="#deconnexion">
     Deconnexion
   </button>
 

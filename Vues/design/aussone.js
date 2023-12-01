@@ -83,7 +83,12 @@ function getObjetXMLHttpRequest()
 
 			window.onload = function ()
 			{
-			document.getElementById('selectBox').disabled = true;
+
+				if(document.getElementById('selectBox') !== null){
+
+					document.getElementById('selectBox').disabled = true;
+				}
+
 			}
 
 			function refreshPage() {

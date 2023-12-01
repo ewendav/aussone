@@ -145,6 +145,7 @@
 					<span class="caret"></span>
 				</button>
 				<ul class="dropdown-menu" aria-labelledby="menuEntraineur">
+					<li><a class="dropdown-item" href="index.php?vue=Entraineur&action=visualiserAdmin">Visualiser les entraineurs</a></li>
 					<li><a class="dropdown-item" href=index.php?vue=Entraineur&action=ajouter>Ajouter un Entraineur</a></li>
 					<li><a class="dropdown-item" href=index.php?vue=Entraineur&action=modifier>Modifier un entraineur</a></li>
 				</ul>
@@ -155,6 +156,7 @@
 					<span class="caret"></span>
 				</button>
 				<ul class="dropdown-menu" aria-labelledby="menuEquipe">
+					<li><a class="dropdown-item" href = "index.php?vue=Equipe&action=visualiser">Visualiser les équipes</a></li>
 					<li><a class="dropdown-item" href=index.php?vue=Equipe&action=ajouter>Ajouter une équipe</a></li>
 					<li><a class=dropdown-item href=index.php?vue=Equipe&action=modifier>Modifier une équipe</a></li>
 				</ul>
@@ -165,6 +167,7 @@
 					<span class="caret"></span>
 				</button>
 				<ul class="dropdown-menu" aria-labelledby="menuAdherent">
+					<li><a class="dropdown-item " href = "index.php?vue=Adherent&action=visualiser">Visualiser les Adherents</a></li>
 					<li><a class="dropdown-item" href=index.php?vue=Adherent&action=ajouter>Ajouter un Adherent</a></li>
 					<li><a class="dropdown-item" href=index.php?vue=Adherent&action=modifier>Modifier un Adherent</a></li>
 				</ul>
@@ -182,7 +185,15 @@
 					<a class="dropdown-item" href=index.php?vue=Spe&action=ajouterSpe>
 					Ajouter une Spécialité
 					</a>
-					</ul>
+					</li>
+					<li>
+					<a class="dropdown-item" href=index.php?vue=Spe&action=vueModifierSpe>
+					Modifier une Spécialité
+					</a>
+					</li>
+				</ul>
+
+				
 
 			</div>
 

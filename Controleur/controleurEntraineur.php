@@ -1,6 +1,19 @@
 <?php
 switch ($action)
 			{
+
+				case "visualiserAdmin" :
+					$vue=new vueCentraleConnexion();
+					$vue->afficheMenuAdmin();
+
+					$result = $this->maBD->visualiserEntraineurAdmin();
+
+					$vueEntraineur = new vueCentraleEntraineur();
+
+					$vueEntraineur->visualiserAdmin($result);
+
+					break;
+
 				case "ajouter":
 					$vue=new vueCentraleConnexion();
 					$vue->afficheMenuAdmin();

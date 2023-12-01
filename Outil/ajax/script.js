@@ -1,49 +1,104 @@
-let selectSport = document.querySelector(".selectSport");
-let selectEntraineur = document.querySelector(".selectEntraineur");
+let match = window.location.href.match(/index\.php\?(.*)/);
+let trimmedString = match ? match[1] : null;
 
+switch (trimmedString){
 
-let selectAgeMax = document.querySelector(".ageMax");
-let selectAgeMin = document.querySelector(".ageMin");
+    case "vue=Equipe&action=ajouter":
 
-selectAgeMax.addEventListener("change", ()=>{
-    selectAgeMin.setAttribute("max", selectAgeMax.value)
-})
-
-selectAgeMin.addEventListener("change", ()=>{
-    selectAgeMax.setAttribute("min", selectAgeMin.value)
-})
-
-
-    selectEntraineur.addEventListener("change", ()=>{   
-
+        let selectSport = document.querySelector(".selectSport");
+        let selectEntraineur = document.querySelector(".selectEntraineur");
+        let selectAgeMax = document.querySelector(".ageMax");
+        let selectAgeMin = document.querySelector(".ageMin");
         let id_slug = selectEntraineur.value;
-    
-        fetch("Outil/ajax/constructionRequeteAjax.php?id_slug=" + id_slug 
-        + "&function_slug=" + "listeEquipe" 
-        +  "&nomSelect_slug=" + "entraineur" , {
-            method: 'GET',
-            headers: {
-                'Content-Type': 'application/json',
-            },
+
+
+        // met les sports lié a l'entraineur dés l'ouvertur de la page 
+        id_slug = selectEntraineur.value;
+            
+                fetch("Outil/ajax/constructionRequeteAjax.php?id_slug=" + id_slug 
+                + "&function_slug=" + "listeEquipe" 
+                +  "&nomSelect_slug=" + "entraineur" , {
+                    method: 'GET',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                })
+                    .then((response) => {
+                       return response.json()
+                    })
+            
+                    .then((responseJ)=>{
+            
+                        selectSport.innerHTML ="";
+            
+                        responseJ.forEach(e => {
+                            selectSport.innerHTML += e;
+                        });
+                    })
+            
+                    .catch(function (error) {
+                        console.error(error);
+                    })
+
+
+
+        
+        selectAgeMax.addEventListener("change", ()=>{
+            selectAgeMin.setAttribute("max", selectAgeMax.value)
         })
-            .then((response) => {
-               return response.json()
-            })
-    
-            .then((responseJ)=>{
-    
-                selectSport.innerHTML ="";
-    
-                responseJ.forEach(e => {
-                    selectSport.innerHTML += e;
-                });
-            })
-    
-            .catch(function (error) {
-                console.error(error);
-            })
-       
-    });
+        
+        selectAgeMin.addEventListener("change", ()=>{
+            selectAgeMax.setAttribute("min", selectAgeMin.value)
+        })
+        
+            selectEntraineur.addEventListener("change", ()=>{   
+        
+                id_slug = selectEntraineur.value;
+            
+                fetch("Outil/ajax/constructionRequeteAjax.php?id_slug=" + id_slug 
+                + "&function_slug=" + "listeEquipe" 
+                +  "&nomSelect_slug=" + "entraineur" , {
+                    method: 'GET',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                })
+                    .then((response) => {
+                       return response.json()
+                    })
+            
+                    .then((responseJ)=>{
+            
+                        selectSport.innerHTML ="";
+            
+                        responseJ.forEach(e => {
+                            selectSport.innerHTML += e;
+                        });
+                    })
+            
+                    .catch(function (error) {
+                        console.error(error);
+                    })
+               
+            });
+
+            break;        
+
+
+
+            case "vue=Entraineur&action=modifier" : 
+
+            
+
+            break;
+
+
+    default:
+    break;
+}
+
+
+
 
 
 document.addEventListener("DOMContentLoaded", function() {
